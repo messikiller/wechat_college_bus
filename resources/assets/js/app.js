@@ -43,4 +43,4 @@ if (token) {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/front/Example');
+require('./components/front/App');
