@@ -8,9 +8,7 @@
         <title>Laravel</title>
     </head>
     <body>
-        <div id="root">
-
-        </div>
+        <div id="root"></div>
     </body>
     <script src="{{ asset('js/admin.js') }}"></script>
 </html>

@@ -34,7 +34,10 @@ export default class ThroughBus extends React.Component {
                     size="small"
                     inline
                     disabled={item.status == 1}
-                  >{item.status == 1 ? '已售罄' : `${item.price}￥/人购买`}</Button>
+                    onClick={() => {
+                      window.location = `#/through_bus/add/${item.id}`
+                    }}
+                  >{item.status == 1 ? '已售罄' : `${item.price}￥/人`}</Button>
                 </div>
               </div>
             </Card.Body>

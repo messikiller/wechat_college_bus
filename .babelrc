@@ -5,8 +5,6 @@
     "stage-1"
   ],
   "plugins": [
-    ["import", { "libraryName": "antd-mobile", "style": "css" }],
-    ["import", { "libraryName": "antd", "style": "css" }],
     ["transform-object-rest-spread"]
   ]
 }

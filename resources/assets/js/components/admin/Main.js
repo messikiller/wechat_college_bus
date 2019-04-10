@@ -2,29 +2,16 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Layout, Menu, Icon, Dropdown, Avatar } from 'antd';
 const { Header, Sider, Content } = Layout;
-import { BrowserRouter as Router, Route, Link, HashRouter, Redirect, Switch } from 'react-router-dom'
-import styles from "./Main.css"
+import { BrowserRouter as Router, Route, Link, HashRouter, Redirect, Switch } from 'react-router-dom';
+import 'antd/dist/antd.css';
+import styles from "./Main.css";
+import ThroughBusManage from './views/ThroughBusManage'
 
-const Dashboard = function (){
-  return(
-    <h1>
-        Dashboard
-    </h1>
-  )
-}
-const Menu1 = function (){
-  return(
-    <h1>
-        Menu1
-    </h1>
-  )
+const Dashboard = function () {
+  return <h1>Dashboard</h1>
 }
 const Menu2 = function (){
-  return(
-    <h1>
-        Menu2
-    </h1>
-  )
+  return <h1>Menu2</h1>
 }
 
 class SiderLayout extends React.Component {
@@ -40,13 +27,13 @@ class SiderLayout extends React.Component {
               <Menu.Item key="dashboard">
                 <Link to="/">
                   <Icon type="dashboard" />
-                  <span>后台首页</span>
+                  <span>首页</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="menu1">
-                <Link to="/menu1">
+              <Menu.Item key="through_bus_manage">
+                <Link to="/through_bus_manage">
                   <Icon type="smile" />
-                  <span>后台菜单1</span>
+                  <span>直通车管理</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="menu2">
@@ -54,12 +41,6 @@ class SiderLayout extends React.Component {
                   <Icon type="smile" />
                   <span>后台菜单2</span>
                 </Link>
-              </Menu.Item>
-              <Menu.Item key="exit">
-                <a href="/">
-                  <Icon type="logout" />
-                  <span>退出后台</span>
-                </a>
               </Menu.Item>
             </Menu>
           </Sider>
@@ -77,9 +58,8 @@ class SiderLayout extends React.Component {
             <Content className="layout__content">
               <Switch>
                 <Route path="/" exact component={Dashboard}/>
-                <Route path="/menu1" exact component={Menu1}/>
+                <Route path="/through_bus_manage" exact component={ThroughBusManage}/>
                 <Route path="/menu2" exact component={Menu2}/>
-                <Redirect to="/" />
               </Switch>
             </Content>
           </Layout>
