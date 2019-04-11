@@ -1,0 +1,32 @@
+.body {
+  padding-bottom: 80px;
+}
+
+.footer {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  background-color: #fff;
+  border-top: 1px solid #eee;
+}
+
+.footer .total-price {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: red;
+}
+
+.footer .order-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 20px;
+  padding-left: 20px;
+  background-color: red;
+  color: #fff;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { TabBar, Icon, Button } from 'antd-mobile';
+import 'antd-mobile/dist/antd-mobile.css';
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import User from './views/User';
 import ThroughBus from './views/ThroughBus';

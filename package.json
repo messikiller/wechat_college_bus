@@ -28,6 +28,7 @@
         "react-router-dom": "^4.3.1"
     },
     "dependencies": {
-        "antd-mobile": "^2.2.11"
+        "antd-mobile": "^2.2.11",
+        "dayjs": "^1.8.12"
     }
 }
