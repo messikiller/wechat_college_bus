@@ -19,6 +19,7 @@
   padding-left: 20px;
   padding-right: 20px;
   color: red;
+  font-size: 1.3em;
 }
 
 .footer .order-btn {
@@ -29,4 +30,5 @@
   padding-left: 20px;
   background-color: red;
   color: #fff;
+  border-radius: 0;
 }

@@ -18,10 +18,10 @@ const MainLayout = () => {
         barTintColor="white"
       >
         <TabBar.Item
-          title="首页"
+          title="直通车"
           key="home"
-          icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-          selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+          icon={<Icon type="plus" />}
+          selectedIcon={<Icon type="plus" />}
           selected={selectedTab === 'through_bus'}
           onPress={() => {
             window.location=('#/through_bus');

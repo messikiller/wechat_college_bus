@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { NavBar, Icon, Calendar, List, InputItem, WhiteSpace, Button, TabBar } from 'antd-mobile';
+import { NavBar, Icon, Calendar, List, InputItem, WhiteSpace, Button, Modal } from 'antd-mobile';
 import dayjs from 'dayjs';
 import styles from './ThroughBusAdd.css'
 
@@ -15,8 +15,11 @@ export default class ThroughBusAdd extends React.Component {
       endDate: new Date('2019-05-30'),
       selectedDate: '',
       unitPrice: '12.35',
+      totalPrice: 0,
       mobile: '',
-      passengers: []
+      passengers: [
+        { name: '' }
+      ]
     }
   }
 
@@ -31,20 +34,36 @@ export default class ThroughBusAdd extends React.Component {
     })
   }
 
+  computeTotalPrice = () => {
+    let totalPrice = this.state.unitPrice * this.state.passengers.length
+    totalPrice = totalPrice.toFixed(2)
+    this.setState({ totalPrice })
+  }
+
   clickAddPassenger = () => {
     let passengers = this.state.passengers
     passengers.push({ name: '' })
-    this.setState({
-      passengers: passengers
-    })
+    this.setState({ passengers }, this.computeTotalPrice)
   }
 
   clickDeletePassenger = (index) => {
     let passengers = this.state.passengers
-    passengers.splice(index, 1)
-    this.setState({
-      passengers: passengers
-    })
+    if (passengers.length > 1) {
+      passengers.splice(index, 1)
+      this.setState({ passengers }, this.computeTotalPrice)
+    }
+  }
+
+  validateForm = () => {
+    return (this.state.mobile.length > 0 && this.state.passengers.every(person => person.name.length > 0))
+  }
+
+  clickSubmit = () => {
+    if (this.validateForm()) {
+      Modal.alert('success', 'OK')
+    } else {
+      Modal.alert('提示', '填写完整后再提交！')
+    }
   }
 
   render() {
@@ -77,20 +96,10 @@ export default class ThroughBusAdd extends React.Component {
               return (
                 <InputItem
                   key={index}
-                  clear
                   onChange={(val) => { item.name = val }}
+                  extra={index > 0 ? (<Icon type="cross" onClick={() => {this.clickDeletePassenger(index)}} />) : ''}
                 >
-                <div>
-                  <Button
-                    onClick={() => {
-                      this.clickDeletePassenger(index)
-                    }}
-                    type="warning"
-                    style={{verticleAlign: 'middle', padding: '0 5px 0 10px', marginRight: '5px'}}
-                    inline
-                    size="small"
-                    icon="minus"></Button> 姓名：
-                  </div>
+                <div>姓名：</div>
                 </InputItem>
               )
             })
@@ -106,13 +115,13 @@ export default class ThroughBusAdd extends React.Component {
         <div className="body">
           {CalendarSelect}
           <WhiteSpace size="md" />
-          <InputItem value={this.state.selectedDate} disabled><div>日期：</div></InputItem>
+          <List.Item extra={this.state.selectedDate}>出行日期：</List.Item>
           <InputItem type="phone" onChange={(val) => { this.setState({ mobile: val }) }}><div>手机号：</div></InputItem>
           {PassengersInputList}
         </div>
         <div className="footer">
-          <div className="total-price">123.45￥</div>
-          <div className="order-btn">确认</div>
+          <div className="total-price">{this.state.totalPrice}￥</div>
+          <a className="order-btn" onClick={ this.clickSubmit }>确认</a>
         </div>
       </div>
     )
