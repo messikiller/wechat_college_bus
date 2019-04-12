@@ -69,7 +69,7 @@ class App extends React.Component {
           <Route path="/through_bus" exact component={MainLayout} />
           <Route path="/user" component={MainLayout} />
           <Route path="/through_bus/add/:id" exact component={ThroughBusAdd} />
-          <Redirect to="/" />
+          <Redirect to="/user" />
         </Switch>
       </HashRouter>
     );

@@ -8,6 +8,7 @@ export default class ThroughBusAdd extends React.Component {
   constructor(props) {
     super(props);
     const params = this.props.match.params
+    let passengerIteratorId = 1
     this.state = {
       throughBusId: params.id,
       showCalendar: true,
@@ -18,7 +19,7 @@ export default class ThroughBusAdd extends React.Component {
       totalPrice: 0,
       mobile: '',
       passengers: [
-        { name: '' }
+        { id: passengerIteratorId++, name: '' }
       ]
     }
   }
@@ -42,7 +43,8 @@ export default class ThroughBusAdd extends React.Component {
 
   clickAddPassenger = () => {
     let passengers = this.state.passengers
-    passengers.push({ name: '' })
+    const id = passengers[passengers.length - 1].id + 1
+    passengers.push({ id: id, name: '' })
     this.setState({ passengers }, this.computeTotalPrice)
   }
 
@@ -95,11 +97,12 @@ export default class ThroughBusAdd extends React.Component {
             this.state.passengers.map((item, index) => {
               return (
                 <InputItem
-                  key={index}
+                  key={item.id}
                   onChange={(val) => { item.name = val }}
                   extra={index > 0 ? (<Icon type="cross" onClick={() => {this.clickDeletePassenger(index)}} />) : ''}
+                  placeholder="填写姓名"
                 >
-                <div>姓名：</div>
+                  <div>乘车人{index + 1}：</div>
                 </InputItem>
               )
             })
@@ -116,7 +119,7 @@ export default class ThroughBusAdd extends React.Component {
           {CalendarSelect}
           <WhiteSpace size="md" />
           <List.Item extra={this.state.selectedDate}>出行日期：</List.Item>
-          <InputItem type="phone" onChange={(val) => { this.setState({ mobile: val }) }}><div>手机号：</div></InputItem>
+          <InputItem type="phone" placeholder="填写11位手机号" onChange={(val) => { this.setState({ mobile: val }) }}><div>手机号：</div></InputItem>
           {PassengersInputList}
         </div>
         <div className="footer">
