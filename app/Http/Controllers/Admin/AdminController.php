@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller as BaseController;
+use App\Http\Controllers\Controller;
 use Auth;
 
-class Controller extends BaseController
+class AdminController extends Controller
 {
     const HTTP_OK = 200;
     const HTTP_ERROR = 500;
@@ -17,7 +17,6 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        parent::__construct();
         $this->user = Auth::user();
     }
 

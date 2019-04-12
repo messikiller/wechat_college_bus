@@ -11,12 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', function () { return view('welcome'); });
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/admin', 'AdminController@index')->name('admin');
+
+Route::group([
+    'middleware' => ['admin'],
+    'namespace' => 'Admin',
+    'prefix' => 'admin/api'
+], function () {
+    Route::get('/through/bus/list', 'ThroughBusController@list');
+    Route::post('/through/bus/add', 'ThroughBusController@add');
+    Route::post('/through/bus/edit', 'ThroughBusController@edit');
+});
