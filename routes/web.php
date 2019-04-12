@@ -11,10 +11,19 @@
 |
 */
 
-Route::get('/', function () { return view('welcome'); });
 Auth::routes();
+
+Route::get('/', function () { return view('welcome'); });
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin');
+
+Route::group([
+    'namespace' => 'Api',
+    'prefix' => 'api'
+], function () {
+    Route::get('/through/bus/index', 'ThroughBusController@index');
+    Route::post('/through/bus/buy', 'ThroughBusController@buy');
+});
 
 Route::group([
     'middleware' => ['admin'],
