@@ -128,7 +128,7 @@ export default class ThroughBusManage extends React.Component {
           }}
           destroyOnClose
         >
-          <Form ref="addForm">
+          <Form>
             <Form.Item label="起始地址" required>
               <Input onChange={(e) => { this.updateAddForm('src', e.target.value) }}></Input>
             </Form.Item>
@@ -149,6 +149,38 @@ export default class ThroughBusManage extends React.Component {
             </Form.Item>
             <Form.Item label="当日抵达时间" required>
               <TimePicker style={{width: '100%'}} onChange={(time) => { this.updateAddForm('arrived_at', time.format('HH:mm:ss')) }}></TimePicker>
+            </Form.Item>
+          </Form>
+        </Modal>
+
+        <Modal
+          title="编辑直通车"
+          visible={this.state.showEditModal}
+          onOk={this.handleEditModalSubmit}
+          onCancel={() => { this.setState({ showEditModal: false }) }}
+          destroyOnClose
+        >
+          <Form>
+            <Form.Item label="起始地址" required>
+              <Input onChange={(e) => { this.updateEditForm('src', e.target.value) }}></Input>
+            </Form.Item>
+            <Form.Item label="目的地址" required>
+              <Input onChange={(e) => { this.updateEditForm('dest', e.target.value) }}></Input>
+            </Form.Item>
+            <Form.Item label="单价（元/人）" required>
+              <InputNumber min={0.00} precision={2} style={{width: '100%'}} onChange={(val) => { this.updateEditForm('price', val) }}></InputNumber>
+            </Form.Item>
+            <Form.Item label="可用时间段" required>
+              <DatePicker.RangePicker
+                style={{width: '100%'}}
+                onChange={(dates) => { this.updateEditForm('start_date', dates[0].format('YYYY-MM-DD')); this.updateAddForm('end_date', dates[1].format('YYYY-MM-DD')); }}
+              ></DatePicker.RangePicker>
+            </Form.Item>
+            <Form.Item label="当日出发时间" required>
+              <TimePicker style={{width: '100%'}} onChange={(time) => { this.updateEditForm('left_at', time.format('HH:mm:ss')) }}></TimePicker>
+            </Form.Item>
+            <Form.Item label="当日抵达时间" required>
+              <TimePicker style={{width: '100%'}} onChange={(time) => { this.updateEditForm('arrived_at', time.format('HH:mm:ss')) }}></TimePicker>
             </Form.Item>
           </Form>
         </Modal>

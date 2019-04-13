@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "antd-mobile": "^2.2.11",
-        "dayjs": "^1.8.12"
+        "dayjs": "^1.8.12",
+        "moment": "^2.24.0"
     }
 }

@@ -5,7 +5,7 @@ const { Header, Sider, Content } = Layout;
 import { BrowserRouter as Router, Route, Link, HashRouter, Redirect, Switch } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import styles from "./Main.css";
-import ThroughBusManage from './views/ThroughBusManage'
+import ThroughBusManage from './views/ThroughBus/Manage'
 
 const Dashboard = function () {
   return <h1>Dashboard</h1>

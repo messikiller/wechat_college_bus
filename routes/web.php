@@ -22,6 +22,7 @@ Route::group([
     'prefix' => 'api'
 ], function () {
     Route::get('/through/bus/index', 'ThroughBusController@index');
+    Route::get('/through/bus/view', 'ThroughBusController@view');
     Route::post('/through/bus/buy', 'ThroughBusController@buy');
 });
 
@@ -31,6 +32,7 @@ Route::group([
     'prefix' => 'admin/api'
 ], function () {
     Route::get('/through/bus/list', 'ThroughBusController@list');
+    Route::get('/through/bus/view', 'ThroughBusController@view');
     Route::post('/through/bus/add', 'ThroughBusController@add');
     Route::post('/through/bus/edit', 'ThroughBusController@edit');
 });

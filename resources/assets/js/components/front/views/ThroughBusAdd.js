@@ -12,16 +12,36 @@ export default class ThroughBusAdd extends React.Component {
     this.state = {
       throughBusId: params.id,
       showCalendar: true,
-      startDate: new Date('2019-05-01'),
-      endDate: new Date('2019-05-30'),
+      startDate: new Date(),
+      endDate: new Date(),
       selectedDate: '',
-      unitPrice: '12.35',
-      totalPrice: 0,
+      unitPrice: 0,
       mobile: '',
       passengers: [
         { id: passengerIteratorId++, name: '' }
       ]
     }
+  }
+
+  requestThroughBusView = async () => {
+    const res = await axios({
+      method: 'get',
+      url: '/through/bus/view',
+      params: {
+        id: this.state.throughBusId
+      }
+    })
+
+    const data = res.data.data
+    this.setState({
+      startDate: new Date(data.start_date),
+      endDate: new Date(data.end_date),
+      unitPrice: data.price
+    })
+  }
+
+  componentWillMount() {
+    this.requestThroughBusView()
   }
 
   onCancelSelectCalendar = () => {
@@ -123,7 +143,7 @@ export default class ThroughBusAdd extends React.Component {
           {PassengersInputList}
         </div>
         <div className="footer">
-          <div className="total-price">{this.state.totalPrice}￥</div>
+          <div className="total-price">{(this.state.passengers.length * this.state.unitPrice).toFixed(2)}￥</div>
           <a className="order-btn" onClick={ this.clickSubmit }>确认</a>
         </div>
       </div>
