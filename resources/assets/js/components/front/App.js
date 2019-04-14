@@ -6,6 +6,7 @@ import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import User from './views/User';
 import ThroughBus from './views/ThroughBus';
 import ThroughBusAdd from './views/ThroughBusAdd';
+import CharterBus from './views/CharterBus';
 
 const MainLayout = () => {
   const hash = window.location.hash
@@ -28,6 +29,18 @@ const MainLayout = () => {
           }}
         >
           <Route path="/through_bus" exact component={ThroughBus} />
+        </TabBar.Item>
+        <TabBar.Item
+          title="包车"
+          key="charter_bus"
+          icon={<Icon type="plus" />}
+          selectedIcon={<Icon type="plus" />}
+          selected={selectedTab === 'charter_bus'}
+          onPress={() => {
+            window.location=('#/charter_bus');
+          }}
+        >
+          <Route path="/charter_bus" exact component={CharterBus} />
         </TabBar.Item>
         <TabBar.Item
           title="我的"
@@ -67,8 +80,11 @@ class App extends React.Component {
       <HashRouter>
         <Switch>
           <Route path="/through_bus" exact component={MainLayout} />
-          <Route path="/user" component={MainLayout} />
           <Route path="/through_bus/add/:id" exact component={ThroughBusAdd} />
+
+          <Route path="/charter_bus" exact component={MainLayout} />
+
+          <Route path="/user" exact component={MainLayout} />
           <Redirect to="/user" />
         </Switch>
       </HashRouter>

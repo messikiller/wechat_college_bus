@@ -81,11 +81,11 @@ export default class ThroughBusAdd extends React.Component {
   }
 
   clickSubmit = () => {
-    if (this.validateForm()) {
-      Modal.alert('success', 'OK')
-    } else {
+    if (!this.validateForm()) {
       Modal.alert('提示', '填写完整后再提交！')
+      return false
     }
+    // do submit
   }
 
   render() {
