@@ -24,6 +24,8 @@ Route::group([
     Route::get('/through/bus/index', 'ThroughBusController@index');
     Route::get('/through/bus/view', 'ThroughBusController@view');
     Route::post('/through/bus/buy', 'ThroughBusController@buy');
+
+    Route::post('/charter/bus/add', 'CharterBusController@add');
 });
 
 Route::group([
@@ -35,4 +37,7 @@ Route::group([
     Route::get('/through/bus/view', 'ThroughBusController@view');
     Route::post('/through/bus/add', 'ThroughBusController@add');
     Route::post('/through/bus/edit', 'ThroughBusController@edit');
+
+    Route::get('/charter/bus/list', 'CharterBusController@list');
+    Route::post('/charter/bus/offer', 'CharterBusController@offer');
 });

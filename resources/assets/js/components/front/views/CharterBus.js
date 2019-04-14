@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Form, Button, List, InputItem, Picker, DatePicker, WhiteSpace, Modal } from 'antd-mobile';
+import { Form, Button, List, InputItem, Picker, DatePicker, WhiteSpace, Modal, Toast } from 'antd-mobile';
 import dayjs from 'dayjs';
 
 export default class CharterBus extends React.Component {
@@ -41,12 +41,34 @@ export default class CharterBus extends React.Component {
     return strAttrs.every(attr => form[attr].length > 0) && numAttrs.every(attr => form[attr] > 0)
   }
 
-  handleClickSubmit = () => {
+  resetForm = () => {
+    this.setState({
+      form: {
+        type: 0,
+        src: '',
+        dest: '',
+        started_at: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        ended_at: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        mobile: '',
+        contactor: '',
+        passengers_num: 0,
+        remark: ''
+      }
+    })
+  }
+
+  handleClickSubmit = async () => {
     if (!this.validateForm()) {
       Modal.alert('提示', '填写完整后再提交！')
       return false
     }
-    // do submit
+    await axios({
+      method: 'post',
+      url: '/charter/bus/add',
+      data: this.state.form
+    })
+    this.resetForm()
+    Toast.success('包车申请成功！')
   }
 
   render () {

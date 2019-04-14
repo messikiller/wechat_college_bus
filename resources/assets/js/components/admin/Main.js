@@ -6,13 +6,17 @@ import { BrowserRouter as Router, Route, Link, HashRouter, Redirect, Switch } fr
 import 'antd/dist/antd.css';
 import styles from "./Main.css";
 import ThroughBusManage from './views/ThroughBus/Manage'
+import CharterBusManage from './views/CharterBus/Manage'
 
 const Dashboard = function () {
   return <h1>Dashboard</h1>
 }
-const Menu2 = function (){
-  return <h1>Menu2</h1>
-}
+
+const SiderMenus = [
+  { key: 'dashboard', icon: 'dashboard', title: '首页', link: '/'},
+  { key: 'through_bus_manage', icon: 'smile', title: '直通车管理', link: '/through_bus_manage'},
+  { key: 'charter_bus_manage', icon: 'smile', title: '包车管理', link: '/charter_bus_manage'},
+]
 
 class SiderLayout extends React.Component {
   render() {
@@ -23,25 +27,20 @@ class SiderLayout extends React.Component {
             <div className="layout__logo" />
             <Menu
               theme="dark"
-              defaultSelectedKeys={this.menuAutoSelect()}>
-              <Menu.Item key="dashboard">
-                <Link to="/">
-                  <Icon type="dashboard" />
-                  <span>首页</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="through_bus_manage">
-                <Link to="/through_bus_manage">
-                  <Icon type="smile" />
-                  <span>直通车管理</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="menu2">
-                <Link to="/menu2">
-                  <Icon type="smile" />
-                  <span>后台菜单2</span>
-                </Link>
-              </Menu.Item>
+              defaultSelectedKeys={this.menuAutoSelect()}
+            >
+              {
+                SiderMenus.map(item => {
+                  return (
+                    <Menu.Item key={item.key}>
+                      <Link to={item.link}>
+                        <Icon type={item.icon} />
+                        <span>{item.title}</span>
+                      </Link>
+                    </Menu.Item>
+                  )
+                })
+              }
             </Menu>
           </Sider>
           <Layout>
@@ -59,7 +58,7 @@ class SiderLayout extends React.Component {
               <Switch>
                 <Route path="/" exact component={Dashboard}/>
                 <Route path="/through_bus_manage" exact component={ThroughBusManage}/>
-                <Route path="/menu2" exact component={Menu2}/>
+                <Route path="/charter_bus_manage" exact component={CharterBusManage}/>
               </Switch>
             </Content>
           </Layout>
