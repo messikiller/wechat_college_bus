@@ -2,7 +2,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8mb4 ;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -11,7 +11,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 DROP TABLE IF EXISTS `migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -27,7 +27,7 @@ INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_charter_bus_records`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_charter_bus_records` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL DEFAULT '0',
@@ -54,11 +54,14 @@ INSERT INTO `t_charter_bus_records` VALUES (1,0,1,'北京大学北大门','清�
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_members`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_members` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `wechat_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
-  `mobile` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
+  `wechat_id` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '',
+  `nickname` varchar(20) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '姓名',
+  `college` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '学校',
+  `id_card_no` varchar(60) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '身份证号码',
+  `mobile` varchar(50) COLLATE utf8mb4_bin NOT NULL DEFAULT '',
   `created_at` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -70,11 +73,11 @@ LOCK TABLES `t_members` WRITE;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_orders` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL DEFAULT '0',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '订单类型，0-直通车',
+  `member_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '订单类型，0-直通车，1-包车，2-众筹',
   `price` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '金额，单位：分',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态，0-待支付，1-支付成功，2-订单取消',
   `created_at` int(11) unsigned NOT NULL DEFAULT '0',
@@ -86,14 +89,29 @@ LOCK TABLES `t_orders` WRITE;
 /*!40000 ALTER TABLE `t_orders` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_orders` ENABLE KEYS */;
 UNLOCK TABLES;
+DROP TABLE IF EXISTS `t_raise_addresses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_raise_addresses` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '地址名称',
+  `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间戳',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `t_raise_addresses` WRITE;
+/*!40000 ALTER TABLE `t_raise_addresses` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_raise_addresses` ENABLE KEYS */;
+UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_through_bus_records`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_through_bus_records` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `bus_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '直达车路线ID',
   `user_id` int(11) unsigned NOT NULL DEFAULT '0',
-  `passengers` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '乘客信息JSON',
+  `passengers` text COLLATE utf8mb4_bin NOT NULL COMMENT '乘客信息JSON',
   `created_at` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -105,11 +123,11 @@ LOCK TABLES `t_through_bus_records` WRITE;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_through_buses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_through_buses` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `src` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '起始地',
-  `dest` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '目的地',
+  `src` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '起始地',
+  `dest` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '目的地',
   `price` bigint(50) unsigned NOT NULL DEFAULT '0' COMMENT '单价，分/人',
   `left_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '出发时间',
   `arrived_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '抵达时间',
@@ -127,7 +145,7 @@ INSERT INTO `t_through_buses` VALUES (1,'背景sad静安寺','阿萨德了会计
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_user_password_resets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_user_password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -142,7 +160,7 @@ LOCK TABLES `t_user_password_resets` WRITE;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -153,12 +171,12 @@ CREATE TABLE `t_users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `t_users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `t_users` WRITE;
 /*!40000 ALTER TABLE `t_users` DISABLE KEYS */;
-INSERT INTO `t_users` VALUES (1,'admin','admin@qq.com','$2y$10$MYHQSoTNB0jTgOT2X3bFfuPDBabBRE/Td6exCKNJ098Y3AaJW0bSy',NULL,NULL,NULL);
+INSERT INTO `t_users` VALUES (1,'admin','admin@qq.com','$2y$10$MYHQSoTNB0jTgOT2X3bFfuPDBabBRE/Td6exCKNJ098Y3AaJW0bSy','CkI8nCPGJpSfHGOMHTvATe9ByGfI9feKtVEDxxsnHXpVTjwjK1LYRdCvMXS2',NULL,NULL),(2,'user1','user@user.com','$2y$10$gomO3iLHjnKz3xwux/VRsOTo.PJOOzfgVXnLaGVG.mT6udDrOyEU2','iumRrADfRia7Sa5ioitVnRwPbtbeXZv4HLISS7FD9vgdnKPg2kzxrkSEyKDX','2019-04-15 06:46:37','2019-04-15 07:02:37');
 /*!40000 ALTER TABLE `t_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
