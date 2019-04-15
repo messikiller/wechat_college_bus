@@ -7,6 +7,8 @@ import 'antd/dist/antd.css';
 import styles from "./Main.css";
 import ThroughBusManage from './views/ThroughBus/Manage'
 import CharterBusManage from './views/CharterBus/Manage'
+import UserManage from './views/User/Manage'
+import OrderManage from './views/Order/Manage'
 
 const Dashboard = function () {
   return <h1>Dashboard</h1>
@@ -14,8 +16,10 @@ const Dashboard = function () {
 
 const SiderMenus = [
   { key: 'dashboard', icon: 'dashboard', title: '首页', link: '/'},
+  { key: 'user', icon: 'smile', title: '账号管理', link: '/user'},
   { key: 'through_bus_manage', icon: 'smile', title: '直通车管理', link: '/through_bus_manage'},
   { key: 'charter_bus_manage', icon: 'smile', title: '包车管理', link: '/charter_bus_manage'},
+  { key: 'order_manage', icon: 'smile', title: '订单管理', link: '/order_manage'},
 ]
 
 class SiderLayout extends React.Component {
@@ -57,8 +61,10 @@ class SiderLayout extends React.Component {
             <Content className="layout__content">
               <Switch>
                 <Route path="/" exact component={Dashboard}/>
+                <Route path="/user" exact component={UserManage}/>
                 <Route path="/through_bus_manage" exact component={ThroughBusManage}/>
                 <Route path="/charter_bus_manage" exact component={CharterBusManage}/>
+                <Route path="/order_manage" exact component={OrderManage}/>
               </Switch>
             </Content>
           </Layout>

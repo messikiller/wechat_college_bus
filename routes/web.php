@@ -33,6 +33,10 @@ Route::group([
     'namespace' => 'Admin',
     'prefix' => 'admin/api'
 ], function () {
+    Route::get('/user/list', 'UserController@list');
+
+    Route::get('/order/list', 'OrderController@list');
+
     Route::get('/through/bus/list', 'ThroughBusController@list');
     Route::get('/through/bus/view', 'ThroughBusController@view');
     Route::post('/through/bus/add', 'ThroughBusController@add');
