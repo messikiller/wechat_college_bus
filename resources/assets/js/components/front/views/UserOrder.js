@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { NavBar, Icon, List, WhiteSpace, Button, Tabs } from 'antd-mobile';
+import { NavBar, Icon, List, WhiteSpace, Button, Tabs, Badge } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
 
 export default class UserOrder extends React.Component {
@@ -64,9 +64,15 @@ export default class UserOrder extends React.Component {
                 {
                   this.state.payingList.map((item, index) => {
                     return (
-                      <List.Item key={index} extra={item.created_at} align="top" thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png" multipleLine>
-                        {item.price} ￥
-                        <List.Item.Brief>{item.type_desc}</List.Item.Brief>
+                      <List.Item
+                        key={index}
+                        extra={<span>{item.price} ￥</span>}
+                        thumb='/images/money.png'
+                        align="top"
+                        multipleLine
+                      >
+                        {item.type_desc}
+                        <List.Item.Brief>{item.created_at}</List.Item.Brief>
                       </List.Item>
                     )
                   })
@@ -79,9 +85,15 @@ export default class UserOrder extends React.Component {
                 {
                   this.state.paidList.map((item, index) => {
                     return (
-                      <List.Item key={index} extra={item.created_at} align="top" thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png" multipleLine>
-                        {item.price} ￥
-                        <List.Item.Brief>{item.type_desc}</List.Item.Brief>
+                      <List.Item
+                        key={index}
+                        extra={<span>{item.price} ￥</span>}
+                        thumb='/images/money.png'
+                        align="top"
+                        multipleLine
+                      >
+                        {item.type_desc}
+                        <List.Item.Brief>{item.created_at}</List.Item.Brief>
                       </List.Item>
                     )
                   })
@@ -94,9 +106,15 @@ export default class UserOrder extends React.Component {
                 {
                   this.state.cancelList.map((item, index) => {
                     return (
-                      <List.Item key={index} extra={item.created_at} align="top" thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png" multipleLine>
-                        {item.price} ￥
-                        <List.Item.Brief>{item.type_desc}</List.Item.Brief>
+                      <List.Item
+                        key={index}
+                        extra={<span>{item.price} ￥</span>}
+                        thumb='/images/money.png'
+                        align="top"
+                        multipleLine
+                      >
+                        {item.type_desc}
+                        <List.Item.Brief>{item.created_at}</List.Item.Brief>
                       </List.Item>
                     )
                   })

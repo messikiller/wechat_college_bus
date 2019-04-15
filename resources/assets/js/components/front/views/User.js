@@ -9,7 +9,7 @@ export default class User extends React.Component {
     this.state = {
       hasLogin: true,
       username: 'messikiller',
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg'
+      avatar: '/images/default-avatar.jpg'
     }
   }
 
