@@ -42,7 +42,7 @@ export default class User extends React.Component {
         </WingBlank>
 
         <List style={{ display: this.state.hasLogin ? 'block' : 'none' }}>
-          <List.Item arrow="horizontal" onClick={() => {}}>个人信息</List.Item>
+          <List.Item arrow="horizontal" onClick={() => { window.location = '#/user/profile' }}>个人信息</List.Item>
           <List.Item arrow="horizontal" onClick={() => {}}>我的订单</List.Item>
           <List.Item arrow="horizontal" onClick={() => {}}>我的包车</List.Item>
           <List.Item arrow="horizontal" onClick={() => {}}>我的众筹</List.Item>

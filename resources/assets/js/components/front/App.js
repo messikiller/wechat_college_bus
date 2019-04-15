@@ -7,6 +7,7 @@ import User from './views/User';
 import ThroughBus from './views/ThroughBus';
 import ThroughBusAdd from './views/ThroughBusAdd';
 import CharterBus from './views/CharterBus';
+import UserProfile from './views/UserProfile';
 
 const MainLayout = () => {
   const hash = window.location.hash
@@ -84,7 +85,8 @@ class App extends React.Component {
 
           <Route path="/charter_bus" exact component={MainLayout} />
 
-          <Route path="/user" exact component={MainLayout} />
+          <Route path="/user/profile" exact component={UserProfile} />
+          <Route path="/user" component={MainLayout} />
           <Redirect to="/user" />
         </Switch>
       </HashRouter>
