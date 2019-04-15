@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Form, Button, List, InputItem, Picker, DatePicker, WhiteSpace, Modal, Toast } from 'antd-mobile';
+import { NavBar, Form, Button, List, InputItem, Picker, DatePicker, WhiteSpace, Modal, Toast } from 'antd-mobile';
 import dayjs from 'dayjs';
 
 export default class CharterBus extends React.Component {
@@ -74,8 +74,9 @@ export default class CharterBus extends React.Component {
   render () {
     return (
       <div>
+        <NavBar mode="dark">包车出行</NavBar>
         <WhiteSpace size="md" />
-        <List renderHeader={() => '包车信息'}>
+        <List>
           <WhiteSpace size="md" />
           <Picker
             cols="1"

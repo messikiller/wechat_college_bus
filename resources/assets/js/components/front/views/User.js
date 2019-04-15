@@ -15,14 +15,14 @@ export default class User extends React.Component {
 
   render () {
     const loginInfo = (
-      <div className="container">
+      <div className="login-container">
         <img src={this.state.avatar} className="avatar" />
         <div className="username">{this.state.username}</div>
       </div>
     )
 
     const unloginInfo = (
-      <div className="container">
+      <div className="login-container">
         <div className="login-btn-container">
           <Button type="primary" size="small" inline>登录</Button>
         </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Card, WhiteSpace, Flex } from 'antd-mobile';
+import { NavBar, Button, Card, WhiteSpace, Flex } from 'antd-mobile';
 import styles from './ThroughBus.css'
 
 export default class ThroughBus extends React.Component {
@@ -54,6 +54,11 @@ export default class ThroughBus extends React.Component {
         </div>
       )
     })
-    return <div>{cardList}</div>
+    return (
+      <div>
+        <NavBar mode="dark">景区直通车</NavBar>
+        {cardList}
+      </div>
+    )
   }
 }

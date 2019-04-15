@@ -1,10 +1,10 @@
-.container {
+.login-container {
   height: 60px;
   display: flex;
   align-items: center;
 }
 
-.container .avatar {
+.login-container .avatar {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -12,11 +12,11 @@
   margin-right: 15px;
 }
 
-.container .username {
+.login-container .username {
   flex: 1;
 }
 
-.container .login-btn-container {
+.login-container .login-btn-container {
   width: 100%;
   display: flex;
   justify-content: center;
