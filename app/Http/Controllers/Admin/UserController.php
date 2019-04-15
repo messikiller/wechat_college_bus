@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
 use App\Models\User;
+use Auth;
 
 class UserController extends AdminController
 {
@@ -24,7 +25,7 @@ class UserController extends AdminController
             $push = $item->toArray();
 
             $push['index'] = ($pageno - 1) * $pagesize + $index + 1;
-            $push['created_at'] = date('Y-m-d', $item->created_at);
+            $push['created_at'] = $item->created_at->toDateString();
 
             $ret[] = $push;
         }
@@ -34,11 +35,37 @@ class UserController extends AdminController
 
     public function add(Request $request)
     {
+        $username = $request->input('username', '');
+        $email = $request->input('email', '');
+        $password = $request->input('password', '');
 
+        if (User::where('name', $username)->count() > 0) {
+            return $this->failed([], '用户名已存在！');
+        }
+
+        if (User::where('email', $email)->count() > 0) {
+            return $this->failed([], '邮箱已经被使用！');
+        }
+
+        User::create([
+            'name' => $username,
+            'email' => $email,
+            'password' => bcrypt($password)
+        ]);
+
+        return $this->success([], 'OK');
     }
 
     public function resetPassword(Request $request)
     {
+        $id = $request->query('id', 0);
+        $password = $request->input('password', '');
 
+        $user = User::find($id);
+        $user->password = bcrypt($password);
+        $user->save();
+
+        return $this->success([], 'OK');
     }
+
 }

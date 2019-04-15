@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, Popconfirm, Input, Modal } from 'antd';
+import AddModal from './AddModal';
 
 export default class Manage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      showAddModal: false,
+      resetPassword: '',
       page: {
         pageno: 1,
         pagesize: 20,
@@ -21,14 +24,50 @@ export default class Manage extends React.Component {
           key: 'actions',
           render: (text, record) => {
             return (
-              <div>
-                <Button type="primary" size="small" style={{marginRight: '5px'}}>重置密码</Button>
-              </div>
+              <Popconfirm
+                placement="top"
+                title={(
+                  <Input
+                    type="password"
+                    placeholder="输入密码"
+                    value={this.state.resetPassword}
+                    onChange={e => {
+                      this.setState({ resetPassword: e.target.value })
+                    }}
+                  ></Input>
+                )}
+                onCancel={() => { this.setState({ resetPassword: '' }) }}
+                onConfirm={ () => { this.handleConfirmResetPassword(record.id) }}
+              >
+                <Button type="primary" size="small">重置密码</Button>
+              </Popconfirm>
             )
           }
         }
       ]
     }
+  }
+
+  handleConfirmResetPassword = async (id) => {
+    if (!this.state.resetPassword) {
+      return false
+    }
+    await axios({
+      method: 'post',
+      url: '/user/reset/password',
+      params: { id },
+      data: {
+        password: this.state.resetPassword
+      }
+    })
+
+    Modal.success({
+      title: '成功',
+      content: '重置密码成功！'
+    })
+
+    this.requestFreshTable()
+    this.setState({ resetPassword: '' })
   }
 
   requestFreshTable = async () => {
@@ -57,7 +96,7 @@ export default class Manage extends React.Component {
   render() {
     return (
       <div>
-        <Button type="primary" icon="plus">创建用户</Button>
+        <Button type="primary" icon="plus" onClick={() => { this.setState({showAddModal: true}) }}>创建用户</Button>
         <div style={{ height: '15px' }}></div>
         <Table
           bordered
@@ -70,6 +109,15 @@ export default class Manage extends React.Component {
             onChange: this.requestFreshTable
           }}
           rowKey="id"
+        />
+
+        <AddModal
+          visible={this.state.showAddModal}
+          onOk={() => {
+            this.setState({ showAddModal: false })
+            this.requestFreshTable()
+          }}
+          onCancel={() => { this.setState({ showAddModal: false }) }}
         />
       </div>
     )

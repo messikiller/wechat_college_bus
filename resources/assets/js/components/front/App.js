@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { TabBar, Icon, Button } from 'antd-mobile';
+import { TabBar, Button } from 'antd-mobile';
+import { Icon } from 'antd';
 import 'antd-mobile/dist/antd-mobile.css';
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import User from './views/User';
@@ -23,8 +24,8 @@ const MainLayout = () => {
         <TabBar.Item
           title="直通车"
           key="home"
-          icon={<Icon type="plus" />}
-          selectedIcon={<Icon type="plus" />}
+          icon={<Icon type="thunderbolt" />}
+          selectedIcon={<Icon type="thunderbolt" />}
           selected={selectedTab === 'through_bus'}
           onPress={() => {
             window.location=('#/through_bus');
@@ -35,8 +36,8 @@ const MainLayout = () => {
         <TabBar.Item
           title="包车"
           key="charter_bus"
-          icon={<Icon type="plus" />}
-          selectedIcon={<Icon type="plus" />}
+          icon={<Icon type="car" />}
+          selectedIcon={<Icon type="car" />}
           selected={selectedTab === 'charter_bus'}
           onPress={() => {
             window.location=('#/charter_bus');
@@ -47,8 +48,8 @@ const MainLayout = () => {
         <TabBar.Item
           title="我的"
           key="user"
-          icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-          selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+          icon={<Icon type="user" />}
+          selectedIcon={<Icon type="user" />}
           selected={selectedTab === 'user'}
           onPress={() => {
             window.location=('#/user')

@@ -33,7 +33,12 @@ Route::group([
     'namespace' => 'Admin',
     'prefix' => 'admin/api'
 ], function () {
+    Route::get('/auth/me', 'AuthController@me');
+    Route::post('/auth/logout', 'AuthController@logout');
+
     Route::get('/user/list', 'UserController@list');
+    Route::post('/user/add', 'UserController@add');
+    Route::post('/user/reset/password', 'UserController@resetPassword');
 
     Route::get('/order/list', 'OrderController@list');
 

@@ -16,13 +16,30 @@ const Dashboard = function () {
 
 const SiderMenus = [
   { key: 'dashboard', icon: 'dashboard', title: '首页', link: '/'},
-  { key: 'user', icon: 'smile', title: '账号管理', link: '/user'},
-  { key: 'through_bus_manage', icon: 'smile', title: '直通车管理', link: '/through_bus_manage'},
-  { key: 'charter_bus_manage', icon: 'smile', title: '包车管理', link: '/charter_bus_manage'},
-  { key: 'order_manage', icon: 'smile', title: '订单管理', link: '/order_manage'},
+  { key: 'user', icon: 'team', title: '账号管理', link: '/user'},
+  { key: 'through_bus_manage', icon: 'thunderbolt', title: '直通车管理', link: '/through_bus_manage'},
+  { key: 'charter_bus_manage', icon: 'car', title: '包车管理', link: '/charter_bus_manage'},
+  { key: 'order_manage', icon: 'shopping-cart', title: '订单管理', link: '/order_manage'},
 ]
 
 class SiderLayout extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: 'unknown'
+    }
+  }
+
+  async componentWillMount() {
+    const res = await axios({
+      method: 'get',
+      url: '/auth/me'
+    })
+    this.setState({
+      username: res.data.data.name
+    })
+  }
+
   render() {
     return (
       <HashRouter>
@@ -53,7 +70,7 @@ class SiderLayout extends React.Component {
                 <Dropdown overlay={menu}>
                   <a href="#">
                     <Avatar src={'images/default-avatar.png'} />
-                    <span className="layout__header__right__name">username</span>
+                    <span className="layout__header__right__name">{this.state.username}</span>
                   </a>
                 </Dropdown>
               </div>
@@ -87,7 +104,7 @@ class SiderLayout extends React.Component {
 const avatarOnClick = function({key}){
   switch (key) {
     case 'logout':
-      axios.post('logout')
+      axios.post('/auth/logout')
       .then(function (response) {
         location.reload()
       })
