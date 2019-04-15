@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { NavBar, Icon, Calendar, List, InputItem, WhiteSpace, Button, Modal } from 'antd-mobile';
+import { NavBar, Icon, List, InputItem, WhiteSpace, Button, Modal, DatePicker } from 'antd-mobile';
 import dayjs from 'dayjs';
 import styles from './ThroughBusAdd.css'
 
@@ -10,8 +10,11 @@ export default class ThroughBusAdd extends React.Component {
     const params = this.props.match.params
     let passengerIteratorId = 1
     this.state = {
+      leftAt: '',
+      arrivedAt: '',
+      src: '',
+      dest: '',
       throughBusId: params.id,
-      showCalendar: true,
       startDate: new Date(),
       endDate: new Date(),
       selectedDate: '',
@@ -34,6 +37,10 @@ export default class ThroughBusAdd extends React.Component {
 
     const data = res.data.data
     this.setState({
+      leftAt: data.left_at,
+      arrivedAt: data.arrived_at,
+      src: data.src,
+      dest: data.dest,
       startDate: new Date(data.start_date),
       endDate: new Date(data.end_date),
       unitPrice: data.price
@@ -46,13 +53,6 @@ export default class ThroughBusAdd extends React.Component {
 
   onCancelSelectCalendar = () => {
     window.history.back(-1)
-  }
-
-  onConfirmSelectCalendar = (date) => {
-    this.setState({
-      selectedDate: dayjs(date).format('YYYY-MM-DD'),
-      showCalendar: false,
-    })
   }
 
   computeTotalPrice = () => {
@@ -99,17 +99,6 @@ export default class ThroughBusAdd extends React.Component {
       >填写出行信息</NavBar>
     )
 
-    const CalendarSelect = (
-      <Calendar
-        visible={this.state.showCalendar}
-        onCancel={this.onCancelSelectCalendar}
-        onConfirm={this.onConfirmSelectCalendar}
-        type="one"
-        minDate={this.state.startDate}
-        maxDate={this.state.endDate}
-      />
-    )
-
     const PassengersInputList = (
       <List renderHeader={() => '乘客信息'}>
         <List.Item>
@@ -127,6 +116,7 @@ export default class ThroughBusAdd extends React.Component {
               )
             })
           }
+          <WhiteSpace size="lg" />
           <Button type="primary" icon="plus" onClick={() => { this.clickAddPassenger() }}>添加乘客</Button>
         </List.Item>
       </List>
@@ -136,10 +126,26 @@ export default class ThroughBusAdd extends React.Component {
       <div className="container">
         <div className="header">{Navbar}</div>
         <div className="body">
-          {CalendarSelect}
           <WhiteSpace size="md" />
-          <List.Item extra={this.state.selectedDate}>出行日期：</List.Item>
-          <InputItem type="phone" placeholder="填写11位手机号" onChange={(val) => { this.setState({ mobile: val }) }}><div>手机号：</div></InputItem>
+          <List>
+            <List.Item extra={this.state.dest}>目的地：</List.Item>
+            <List.Item extra={this.state.src}>始发地：</List.Item>
+            <List.Item extra={this.state.leftAt}>出发时间：</List.Item>
+            <List.Item extra={this.state.leftAt}>抵达时间：</List.Item>
+          </List>
+          <WhiteSpace size="lg" />
+          <List>
+            <DatePicker
+              mode="date"
+              minDate={new Date(this.state.startDate)}
+              maxDate={new Date(this.state.endDate)}
+              value={!this.state.selectedDate ? '' : new Date(this.state.selectedDate)}
+              onChange={date => { this.setState({ selectedDate: dayjs(date).format('YYYY-MM-DD') }) }}
+            >
+              <List.Item arrow="horizontal">出行日期：</List.Item>
+            </DatePicker>
+            <InputItem type="phone" placeholder="填写11位手机号" onChange={(val) => { this.setState({ mobile: val }) }}><div>联系电话：</div></InputItem>
+          </List>
           {PassengersInputList}
         </div>
         <div className="footer">

@@ -20,10 +20,10 @@ class ThroughBusController extends ApiController
             $push = $item->toArray();
 
             $push['price'] = round($item->price / 100, 2);
-            $push['left_at'] = date('H:i:s', $item->left_at);
-            $push['arrived_at'] = date('H:i:s', $item->arrived_at);
-            $push['start_date'] = date('Y-m-d', $item->start_date);
-            $push['end_date'] = date('Y-m-d', $item->end_date);
+            $push['left_at'] = date('H:i', $item->left_at);
+            $push['arrived_at'] = date('H:i', $item->arrived_at);
+            $push['start_date'] = date('Y.m.d', $item->start_date);
+            $push['end_date'] = date('Y.m.d', $item->end_date);
             $push['created_at'] = date('Y-m-d', $item->created_at);
 
             $ret[] = $push;
