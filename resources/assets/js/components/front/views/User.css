@@ -1,5 +1,5 @@
 .login-container {
-  height: 60px;
+  height: 80px;
   display: flex;
   align-items: center;
 }
@@ -10,10 +10,12 @@
   border-radius: 50%;
   margin-left: 15px;
   margin-right: 15px;
+  border: 3px solid #ddd;
 }
 
 .login-container .username {
   flex: 1;
+  color: #fff;
 }
 
 .login-container .login-btn-container {

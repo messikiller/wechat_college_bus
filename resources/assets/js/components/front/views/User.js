@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Card, WingBlank, WhiteSpace, Flex, Icon, List } from 'antd-mobile';
+import { Button, Card, WhiteSpace, Icon, List } from 'antd-mobile';
 import { Icon as AntIcon } from 'antd';
 import styles from './User.css';
 
@@ -33,15 +33,12 @@ export default class User extends React.Component {
 
     return (
       <div>
-        <WingBlank size="lg">
-          <WhiteSpace size="lg" />
-          <Card full>
-            <Card.Body>
-              { this.state.hasLogin ? loginInfo : unloginInfo }
-            </Card.Body>
-          </Card>
-          <WhiteSpace size="lg" />
-        </WingBlank>
+        <Card full style={{backgroundColor: '#108ee9'}}>
+          <Card.Body>
+            { this.state.hasLogin ? loginInfo : unloginInfo }
+          </Card.Body>
+        </Card>
+        <WhiteSpace size="lg" />
         <List style={{ display: this.state.hasLogin ? 'block' : 'none' }}>
           <List.Item arrow="horizontal" onClick={() => { window.location = '#/user/profile' }}><AntIcon type="user" /> 个人信息</List.Item>
           <List.Item arrow="horizontal" onClick={() => { window.location = '#/user/order' }}><AntIcon type="shopping-cart" /> 我的订单</List.Item>

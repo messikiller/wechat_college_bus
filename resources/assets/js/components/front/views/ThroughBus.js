@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { NavBar, Button, Card, WhiteSpace, Flex, List, InputItem } from 'antd-mobile';
 import styles from './ThroughBus.css'
+import { Steps, Icon as AntIcon } from 'antd';
 
 export default class ThroughBus extends React.Component {
   constructor(props) {
@@ -35,9 +36,11 @@ export default class ThroughBus extends React.Component {
             <Card.Body style={{display: 'flex', alignItems: 'center'}}>
               <div className="flex-container" style={{flex: 1}}>
                 <div className="flex-left">
-                  <div style={{marginBottom: '15px'}}>起点：{item.src}（{item.left_at}）</div>
-                  <div style={{marginBottom: '15px'}}>终点：{item.dest}（{item.arrived_at}）</div>
-                  <div style={{marginBottom: '15px'}}>日期：{item.start_date} ~ {item.end_date}</div>
+                  <Steps size="small" current={2}>
+                    <Steps.Step icon={<AntIcon type="left-circle" />} title={item.src} description={item.left_at} />
+                    <Steps.Step icon={<AntIcon type="right-circle" />} title={item.dest} description={item.arrived_at} />
+                  </Steps>
+                  <Card.Footer content={<List.Item.Brief>日期：{item.start_date} ~ {item.end_date}</List.Item.Brief>} />
                 </div>
                 <div className="flex-extra">
                   <Button
