@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Form, Input, InputNumber, DatePicker, TimePicker, notification } from 'antd';
+import { Modal, Form, Input, InputNumber, Select, DatePicker, TimePicker, notification } from 'antd';
 
 import moment from 'moment';
 
@@ -17,7 +17,7 @@ export default class EditModal extends React.Component {
 
   validateEditForm = () => {
     let editForm = this.state.editForm
-    return Object.values(editForm).every(val => !!val)
+    return Object.keys(editForm).filter(attr => attr != 'status').every(attr => !!editForm[attr])
   }
 
   resetEditForm = () => {
@@ -89,6 +89,12 @@ export default class EditModal extends React.Component {
         destroyOnClose
       >
         <Form>
+          <Form.Item label="状态">
+            <Select value={this.state.editForm.status} onChange={(val) => { this.updateEditForm('status', val)}}>
+              <Select.Option value={0}>正常</Select.Option>
+              <Select.Option value={1}>禁用</Select.Option>
+            </Select>
+          </Form.Item>
           <Form.Item label="起始地址" required>
             <Input value={this.state.editForm.src} onChange={(e) => { this.updateEditForm('src', e.target.value) }}></Input>
           </Form.Item>

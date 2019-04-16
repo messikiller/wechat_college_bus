@@ -10,7 +10,7 @@ class ThroughBusController extends ApiController
 {
     public function index(Request $request)
     {
-        $query = ThroughBus::query()->orderBy('created_at', 'desc');
+        $query = ThroughBus::query()->where('status', 0)->orderBy('created_at', 'desc');
 
         $list = $query->get();
 

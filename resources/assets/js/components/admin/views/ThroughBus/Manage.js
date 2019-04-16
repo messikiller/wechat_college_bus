@@ -25,6 +25,7 @@ export default class Manage extends React.Component {
         { title: '可用截止日期', dataIndex: 'end_date', key: 'end_date' },
         { title: '出发时间', dataIndex: 'left_at', key: 'left_at' },
         { title: '抵达时间', dataIndex: 'arrived_at', key: 'arrived_at' },
+        { title: '状态', dataIndex: 'status_desc', key: 'status_desc' },
         { title: '创建时间', dataIndex: 'created_at', key: 'created_at' },
         {
           title: '操作',

@@ -18,6 +18,11 @@ class ThroughBusController extends AdminController
         $total = $query->count();
         $list = $query->limit($pagesize)->offset(($pageno - 1) * $pagesize)->get();
 
+        $statusIdx = [
+            0 => '正常',
+            1 => '已禁用',
+        ];
+
         $ret = [];
         foreach ($list as $index => $item)
         {
@@ -30,6 +35,7 @@ class ThroughBusController extends AdminController
             $push['start_date'] = date('Y-m-d', $item->start_date);
             $push['end_date'] = date('Y-m-d', $item->end_date);
             $push['created_at'] = date('Y-m-d', $item->created_at);
+            $push['status_desc'] = $statusIdx[$item->status];
 
             $ret[] = $push;
         }
@@ -47,6 +53,7 @@ class ThroughBusController extends AdminController
             'arrived_at' => strtotime('1970-01-01 ' . $request->input('arrived_at', '00:00:00')),
             'start_date' => strtotime($request->input('start_date', '1970-01-01')),
             'end_date' => strtotime($request->input('end_date', '1970-01-01')),
+            'status' => 0,
             'created_at' => time()
         ]);
 
@@ -82,6 +89,7 @@ class ThroughBusController extends AdminController
         $model->arrived_at = strtotime('1970-01-01 ' . $request->input('arrived_at', '00:00:00'));
         $model->start_date = strtotime($request->input('start_date', '1970-01-01'));
         $model->end_date = strtotime($request->input('end_date', '1970-01-01'));
+        $model->status = intval($request->input('status', 0));
 
         $model->save();
 
