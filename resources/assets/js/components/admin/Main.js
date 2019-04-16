@@ -8,14 +8,16 @@ import ThroughBusManage from './views/ThroughBus/Manage'
 import CharterBusManage from './views/CharterBus/Manage'
 import UserManage from './views/User/Manage'
 import OrderManage from './views/Order/Manage'
+import MemberManage from './views/Member/Manage'
 
 const Dashboard = function () {
-  return <h1>Dashboard</h1>
+  return <h1>定制巴士后台 Beta</h1>
 }
 
 const SiderMenus = [
   { key: 'dashboard', icon: 'dashboard', title: '首页', link: '/'},
   { key: 'user', icon: 'team', title: '账号管理', link: '/user'},
+  { key: 'member_manage', icon: 'smile', title: '关注管理', link: '/member_manage'},
   { key: 'through_bus_manage', icon: 'thunderbolt', title: '直通车管理', link: '/through_bus_manage'},
   { key: 'charter_bus_manage', icon: 'car', title: '包车管理', link: '/charter_bus_manage'},
   { key: 'order_manage', icon: 'shopping-cart', title: '订单管理', link: '/order_manage'},
@@ -44,7 +46,7 @@ class SiderLayout extends React.Component {
       <HashRouter>
         <Layout className="layout">
           <Sider collapsible >
-            <div className="layout__logo" />
+            <div className="layout__logo"><Icon type="setting" />&nbsp;定制巴士</div>
             <Menu
               theme="dark"
               defaultSelectedKeys={this.menuAutoSelect()}
@@ -81,6 +83,7 @@ class SiderLayout extends React.Component {
                 <Route path="/through_bus_manage" exact component={ThroughBusManage}/>
                 <Route path="/charter_bus_manage" exact component={CharterBusManage}/>
                 <Route path="/order_manage" exact component={OrderManage}/>
+                <Route path="/member_manage" exact component={MemberManage}/>
               </Switch>
             </Content>
           </Layout>

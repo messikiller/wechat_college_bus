@@ -3,10 +3,14 @@
 }
 
 .layout__logo {
-  height: 32px;
-  background: #444;
   border-radius: 6px;
   margin: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  padding-top: 15px;
+  color: #ccc;
 }
 
 .layout__header{

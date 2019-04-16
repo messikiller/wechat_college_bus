@@ -41,7 +41,7 @@ CREATE TABLE `t_charter_bus_records` (
   `remark` varchar(250) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '备注',
   `passengers_num` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '乘客总数',
   `price` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '报价，单位：分',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态，0-待报价，1-待支付',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态，0-待报价，1-已报价',
   `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间戳',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -59,16 +59,19 @@ CREATE TABLE `t_members` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `wechat_id` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '',
   `nickname` varchar(20) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '姓名',
+  `avatar_url` varchar(250) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '头像URL',
   `college` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '学校',
   `id_card_no` varchar(60) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '身份证号码',
   `mobile` varchar(50) COLLATE utf8mb4_bin NOT NULL DEFAULT '',
+  `is_manager` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否管理员，0-否，1-是',
   `created_at` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `t_members` WRITE;
 /*!40000 ALTER TABLE `t_members` DISABLE KEYS */;
+INSERT INTO `t_members` VALUES (1,'123dfsfwre','messikiller','https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg','家里蹲大学','2345454654654623','1233254345345',1,1555150130);
 /*!40000 ALTER TABLE `t_members` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_orders`;
@@ -79,7 +82,7 @@ CREATE TABLE `t_orders` (
   `member_id` int(11) unsigned NOT NULL DEFAULT '0',
   `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '订单类型，0-直通车，1-包车，2-众筹',
   `price` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '金额，单位：分',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态，0-待支付，1-支付成功，2-订单取消',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态，0-待支付，1-支付成功，2-已取消，3-已完成',
   `created_at` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -176,7 +179,7 @@ CREATE TABLE `t_users` (
 
 LOCK TABLES `t_users` WRITE;
 /*!40000 ALTER TABLE `t_users` DISABLE KEYS */;
-INSERT INTO `t_users` VALUES (1,'admin','admin@qq.com','$2y$10$MYHQSoTNB0jTgOT2X3bFfuPDBabBRE/Td6exCKNJ098Y3AaJW0bSy','CkI8nCPGJpSfHGOMHTvATe9ByGfI9feKtVEDxxsnHXpVTjwjK1LYRdCvMXS2',NULL,NULL),(2,'user1','user@user.com','$2y$10$gomO3iLHjnKz3xwux/VRsOTo.PJOOzfgVXnLaGVG.mT6udDrOyEU2','iumRrADfRia7Sa5ioitVnRwPbtbeXZv4HLISS7FD9vgdnKPg2kzxrkSEyKDX','2019-04-15 06:46:37','2019-04-15 07:02:37');
+INSERT INTO `t_users` VALUES (1,'admin','admin@qq.com','$2y$10$MYHQSoTNB0jTgOT2X3bFfuPDBabBRE/Td6exCKNJ098Y3AaJW0bSy','ciU0Hsm5hEaAe7Hm7FdEY3z0uegMfVT6Zuyvm6l80iQsfRszoNr4z4HmepZV',NULL,NULL),(2,'user1','user@user.com','$2y$10$gomO3iLHjnKz3xwux/VRsOTo.PJOOzfgVXnLaGVG.mT6udDrOyEU2','iumRrADfRia7Sa5ioitVnRwPbtbeXZv4HLISS7FD9vgdnKPg2kzxrkSEyKDX','2019-04-15 06:46:37','2019-04-15 07:02:37');
 /*!40000 ALTER TABLE `t_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

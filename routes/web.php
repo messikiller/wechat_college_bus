@@ -40,6 +40,9 @@ Route::group([
     Route::post('/user/add', 'UserController@add');
     Route::post('/user/reset/password', 'UserController@resetPassword');
 
+    Route::get('/member/list', 'MemberController@list');
+    Route::post('/member/set/manager', 'MemberController@setManager');
+
     Route::get('/order/list', 'OrderController@list');
 
     Route::get('/through/bus/list', 'ThroughBusController@list');
