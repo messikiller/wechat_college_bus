@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { NavBar, Button, Card, WhiteSpace, Flex, List } from 'antd-mobile';
+import { NavBar, Button, Card, WhiteSpace, Flex, List, InputItem } from 'antd-mobile';
 import styles from './ThroughBus.css'
 
 export default class ThroughBus extends React.Component {

@@ -10,7 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
-<body>
+<body style="background-color: #f5f5f9;">
     <div id="app">
     </div>
 

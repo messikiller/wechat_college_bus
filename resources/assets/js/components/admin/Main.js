@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Layout, Menu, Icon, Dropdown, Avatar } from 'antd';
 const { Header, Sider, Content } = Layout;
 import { BrowserRouter as Router, Route, Link, HashRouter, Redirect, Switch } from 'react-router-dom';
-import 'antd/dist/antd.css';
 import styles from "./Main.css";
 import ThroughBusManage from './views/ThroughBus/Manage'
 import CharterBusManage from './views/CharterBus/Manage'

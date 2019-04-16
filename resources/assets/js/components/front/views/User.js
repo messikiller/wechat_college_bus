@@ -9,6 +9,7 @@ export default class User extends React.Component {
     super(props);
     this.state = {
       hasLogin: true,
+      isManager: true,
       username: 'messikiller',
       avatar: '/images/default-avatar.jpg'
     }
@@ -46,6 +47,7 @@ export default class User extends React.Component {
           <List.Item arrow="horizontal" onClick={() => { window.location = '#/user/order' }}><AntIcon type="shopping-cart" /> 我的订单</List.Item>
           <List.Item arrow="horizontal" onClick={() => {}}><AntIcon type="car" /> 我的包车</List.Item>
           <List.Item arrow="horizontal" onClick={() => {}}><AntIcon type="dollar" /> 我的众筹</List.Item>
+          <List.Item arrow="horizontal" style={{ display: this.state.isManager ? 'block' : 'none' }} onClick={() => {}}><AntIcon type="scan" /> 管理员验票</List.Item>
         </List>
       </div>
     )

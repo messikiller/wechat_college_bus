@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { TabBar, Button } from 'antd-mobile';
 import { Icon } from 'antd';
-import 'antd-mobile/dist/antd-mobile.css';
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import User from './views/User';
 import ThroughBus from './views/ThroughBus';
@@ -10,6 +9,7 @@ import ThroughBusAdd from './views/ThroughBusAdd';
 import CharterBus from './views/CharterBus';
 import UserProfile from './views/UserProfile';
 import UserOrder from './views/UserOrder';
+import OrderView from './views/OrderView';
 
 const MainLayout = () => {
   const hash = window.location.hash
@@ -90,6 +90,7 @@ class App extends React.Component {
           <Route path="/user" exact component={MainLayout} />
           <Route path="/user/profile" exact component={UserProfile} />
           <Route path="/user/order" exact component={UserOrder} />
+          <Route path="/user/order/view/:id" exact component={OrderView} />
           <Redirect to="/user" />
         </Switch>
       </HashRouter>

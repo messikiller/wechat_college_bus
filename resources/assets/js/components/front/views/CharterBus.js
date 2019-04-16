@@ -94,15 +94,15 @@ export default class CharterBus extends React.Component {
           <InputItem value={this.state.form.dest} onChange={val => { this.updateFormValue('dest', val) }}>到达地：</InputItem>
           <DatePicker
             value={dayjs(this.state.form.started_at).toDate()}
-            onChange={val => { this.updateFormValue('started_at', dayjs(val).format('YYYY-MM-DD HH:mm:ss')) }}
+            onChange={val => { this.updateFormValue('started_at', dayjs(val).format('YYYY-MM-DD HH:mm')) }}
           >
-            <List.Item arrow="horizontal">开始时间：</List.Item>
+            <List.Item arrow="horizontal" wrap>开始时间：</List.Item>
           </DatePicker>
           <DatePicker
             value={dayjs(this.state.form.ended_at).toDate()}
-            onChange={val => { this.updateFormValue('ended_at', dayjs(val).format('YYYY-MM-DD HH:mm:ss')) }}
+            onChange={val => { this.updateFormValue('ended_at', dayjs(val).format('YYYY-MM-DD HH:mm')) }}
           >
-            <List.Item arrow="horizontal">结束时间：</List.Item>
+            <List.Item arrow="horizontal" wrap>结束时间：</List.Item>
           </DatePicker>
           <InputItem type="number" value={this.state.form.passengers_num} onChange={val => { this.updateFormValue('passengers_num', val) }}>包车人数：</InputItem>
           <InputItem value={this.state.form.contactor} onChange={val => { this.updateFormValue('contactor', val) }}>联系人：</InputItem>

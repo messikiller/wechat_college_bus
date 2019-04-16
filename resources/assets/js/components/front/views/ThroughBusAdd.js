@@ -128,10 +128,10 @@ export default class ThroughBusAdd extends React.Component {
         <div className="body">
           <WhiteSpace size="md" />
           <List>
-            <List.Item extra={this.state.dest}>目的地：</List.Item>
-            <List.Item extra={this.state.src}>始发地：</List.Item>
-            <List.Item extra={this.state.leftAt}>出发时间：</List.Item>
-            <List.Item extra={this.state.leftAt}>抵达时间：</List.Item>
+            <InputItem value={this.state.dest} editable={false}>目的地：</InputItem>
+            <InputItem value={this.state.src} editable={false}>始发地：</InputItem>
+            <InputItem value={this.state.leftAt} editable={false}>出发时间：</InputItem>
+            <InputItem value={this.state.leftAt} editable={false}>抵达时间：</InputItem>
           </List>
           <WhiteSpace size="lg" />
           <List>
