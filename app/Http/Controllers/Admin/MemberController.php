@@ -43,7 +43,7 @@ class MemberController extends AdminController
         $id = $request->query('id', 0);
 
         $model = Member::find($id);
-        $model->is_manager = 1;
+        $model->is_manager = $model->is_manager > 0 ? 0 : 1;
         $model->save();
 
         return $this->success([], 'OK');

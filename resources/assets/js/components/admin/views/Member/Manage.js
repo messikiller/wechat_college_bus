@@ -21,6 +21,7 @@ export default class Manage extends React.Component {
             </div>
           )
         }},
+        { title: '姓名', dataIndex: 'name', key: 'name' },
         { title: '学校', dataIndex: 'college', key: 'college' },
         { title: '身份证号', dataIndex: 'id_card_no', key: 'id_card_no' },
         { title: '手机号', dataIndex: 'mobile', key: 'mobile' },
@@ -32,7 +33,12 @@ export default class Manage extends React.Component {
           render: (text, record) => {
             return (
               <div>
-                <Button type="primary" size="small" style={{marginRight: '5px'}} onClick={() => { this.handleClickSetManager(record) }}>设为管理员</Button>
+                <Button
+                  type="primary"
+                  size="small"
+                  style={{marginRight: '5px'}}
+                  onClick={() => { this.handleClickSetManager(record) }}
+                >{ record.is_manager > 0 ? '取消' : '设为' }管理员</Button>
               </div>
             )
           }
@@ -60,22 +66,23 @@ export default class Manage extends React.Component {
     })
   }
 
-  handleClickSetManager = (record) => {
-    Modal.confirm({
-      title: '确认',
-      content: `确定要将用户：${record.nickname} 设为管理员？`,
-      onOk: async () => {
-        await axios({
-          method: 'post',
-          url: '/member/set/manager',
-          params: {
-            id: record.id
-          }
-        })
-        this.requestFreshTable()
-        message.success('设置管理员成功！')
+  handleClickSetManager = async (record) => {
+    await axios({
+      method: 'post',
+      url: '/member/set/manager',
+      params: {
+        id: record.id
       }
     })
+
+    let opt = record.is_manager > 0 ? '取消' : '设置'
+
+    Modal.success({
+      title: '成功',
+      content: `${opt}管理员权限成功！`
+    })
+
+    this.requestFreshTable()
   }
 
   componentWillMount() {
