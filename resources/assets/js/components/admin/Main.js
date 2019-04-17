@@ -30,7 +30,7 @@ const SiderMenus = [
   { key: 'through_bus_manage', icon: 'thunderbolt', title: '直通车管理', link: '/through_bus_manage'},
   { key: 'charter_bus_manage', icon: 'car', title: '包车管理', link: '/charter_bus_manage'},
   { key: 'raise_address_manage', icon: 'environment', title: '众筹地址管理', link: '/raise_address_manage'},
-  { key: 'raise_bus_manage', icon: 'like', title: '众筹管理', link: '/raise_bus_manage'},
+  { key: 'raise_bus_manage', icon: 'swap', title: '众筹线路管理', link: '/raise_bus_manage'},
   { key: 'order_manage', icon: 'shopping-cart', title: '订单管理', link: '/order_manage'},
 ]
 

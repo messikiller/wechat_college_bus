@@ -55,4 +55,7 @@ Route::group([
 
     Route::post('/raise/address/add', 'RaiseAddressController@add');
     Route::get('/raise/address/list', 'RaiseAddressController@list');
+
+    Route::post('/raise/bus/add', 'RaiseBusController@add');
+    Route::get('/raise/bus/list', 'RaiseBusController@list');
 });

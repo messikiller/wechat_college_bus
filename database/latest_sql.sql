@@ -59,6 +59,7 @@ CREATE TABLE `t_members` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `wechat_id` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '',
   `nickname` varchar(20) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '姓名',
+  `name` varchar(50) COLLATE utf8mb4_bin NOT NULL DEFAULT '',
   `avatar_url` varchar(250) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '头像URL',
   `college` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '学校',
   `id_card_no` varchar(60) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '身份证号码',
@@ -71,7 +72,7 @@ CREATE TABLE `t_members` (
 
 LOCK TABLES `t_members` WRITE;
 /*!40000 ALTER TABLE `t_members` DISABLE KEYS */;
-INSERT INTO `t_members` VALUES (1,'123dfsfwre','messikiller','https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg','家里蹲大学','2345454654654623','1233254345345',1,1555150130);
+INSERT INTO `t_members` VALUES (1,'123dfsfwre','messikiller','路人甲','https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg','家里蹲大学','2345454654654623','1233254345345',0,1555150130);
 /*!40000 ALTER TABLE `t_members` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_orders`;
@@ -98,14 +99,39 @@ DROP TABLE IF EXISTS `t_raise_addresses`;
 CREATE TABLE `t_raise_addresses` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '地址名称',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '地址类型，0-学校，1-家乡',
   `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `t_raise_addresses` WRITE;
 /*!40000 ALTER TABLE `t_raise_addresses` DISABLE KEYS */;
+INSERT INTO `t_raise_addresses` VALUES (1,'贵州大学',0,1555492067),(2,'北京市城北客运站',1,1555492152),(3,'武汉市第一客运站',1,1555492168),(4,'杭州南客站',1,1555492306);
 /*!40000 ALTER TABLE `t_raise_addresses` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `t_raise_buses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_raise_buses` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `src_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '起始地ID',
+  `dest_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '目的地id',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '类型，0-回乡，1-返校',
+  `date` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '出发日期，0点时间戳',
+  `left_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '出发时间戳',
+  `price` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '价格，单位：分',
+  `min` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '限制最少人数',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态，0-众筹中，1-众筹成功，2-众筹失败，3-众筹取消',
+  `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间戳',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `t_raise_buses` WRITE;
+/*!40000 ALTER TABLE `t_raise_buses` DISABLE KEYS */;
+INSERT INTO `t_raise_buses` VALUES (1,3,1,0,1554739200,1554816310,0,0,0,1555496548),(2,4,1,0,1556380800,1556454350,3564,250,0,1555496728);
+/*!40000 ALTER TABLE `t_raise_buses` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_through_bus_records`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -136,6 +162,7 @@ CREATE TABLE `t_through_buses` (
   `arrived_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '抵达时间',
   `start_date` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '可用起始日期',
   `end_date` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '可用截止日期',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `created_at` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -143,7 +170,7 @@ CREATE TABLE `t_through_buses` (
 
 LOCK TABLES `t_through_buses` WRITE;
 /*!40000 ALTER TABLE `t_through_buses` DISABLE KEYS */;
-INSERT INTO `t_through_buses` VALUES (1,'背景sad静安寺','阿萨德了会计师对方',3456,36930,44130,1559318400,1560873600,1555147366),(2,'贵州大学西大门11','华西大学22',4590,4225,51330,1552492800,1553097600,1555150130);
+INSERT INTO `t_through_buses` VALUES (1,'背景sad静安寺','阿萨德了会计师对方',3456,36930,44130,1559318400,1560873600,0,1555147366),(2,'贵州大学西大门11','华西大学22',4590,4225,51330,1552492800,1553097600,0,1555150130);
 /*!40000 ALTER TABLE `t_through_buses` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_user_password_resets`;
@@ -160,6 +187,22 @@ CREATE TABLE `t_user_password_resets` (
 LOCK TABLES `t_user_password_resets` WRITE;
 /*!40000 ALTER TABLE `t_user_password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_user_password_resets` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `t_user_raise_records`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_user_raise_records` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `raise_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '众筹路线ID',
+  `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间戳',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `t_user_raise_records` WRITE;
+/*!40000 ALTER TABLE `t_user_raise_records` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_user_raise_records` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `t_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
