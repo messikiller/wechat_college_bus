@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Layout, Menu, Icon, Dropdown, Avatar } from 'antd';
-const { Header, Sider, Content } = Layout;
 import { BrowserRouter as Router, Route, Link, HashRouter, Redirect, Switch } from 'react-router-dom';
+import { Layout, Menu, Icon, Dropdown, Avatar } from 'antd';
+import { LocaleProvider } from 'antd';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import styles from "./Main.css";
 import ThroughBusManage from './views/ThroughBus/Manage'
 import CharterBusManage from './views/CharterBus/Manage'
 import UserManage from './views/User/Manage'
+import RaiseBusManage from './views/RaiseBus/Manage'
+import RaiseAddressManage from './views/RaiseAddress/Manage'
 import OrderManage from './views/Order/Manage'
 import MemberManage from './views/Member/Manage'
+
+moment.locale('zh-cn');
+
+const { Header, Sider, Content } = Layout;
 
 const Dashboard = function () {
   return <h1>定制巴士后台 Beta</h1>
@@ -20,6 +29,8 @@ const SiderMenus = [
   { key: 'member_manage', icon: 'smile', title: '关注管理', link: '/member_manage'},
   { key: 'through_bus_manage', icon: 'thunderbolt', title: '直通车管理', link: '/through_bus_manage'},
   { key: 'charter_bus_manage', icon: 'car', title: '包车管理', link: '/charter_bus_manage'},
+  { key: 'raise_address_manage', icon: 'environment', title: '众筹地址管理', link: '/raise_address_manage'},
+  { key: 'raise_bus_manage', icon: 'like', title: '众筹管理', link: '/raise_bus_manage'},
   { key: 'order_manage', icon: 'shopping-cart', title: '订单管理', link: '/order_manage'},
 ]
 
@@ -27,6 +38,7 @@ class SiderLayout extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      collapsed: false,
       username: 'unknown'
     }
   }
@@ -43,52 +55,60 @@ class SiderLayout extends React.Component {
 
   render() {
     return (
-      <HashRouter>
-        <Layout className="layout">
-          <Sider collapsible >
-            <div className="layout__logo"><Icon type="setting" />&nbsp;定制巴士</div>
-            <Menu
-              theme="dark"
-              defaultSelectedKeys={this.menuAutoSelect()}
+      <LocaleProvider locale={zh_CN}>
+        <HashRouter>
+          <Layout className="layout">
+            <Sider
+              collapsible
+              collapsed={this.state.collapsed}
+              onCollapse={(collapsed) => { this.setState({ collapsed }) }}
             >
-              {
-                SiderMenus.map(item => {
-                  return (
-                    <Menu.Item key={item.key}>
-                      <Link to={item.link}>
-                        <Icon type={item.icon} />
-                        <span>{item.title}</span>
-                      </Link>
-                    </Menu.Item>
-                  )
-                })
-              }
-            </Menu>
-          </Sider>
-          <Layout>
-            <Header className="layout__header">
-              <div className="layout__header__right">
-                <Dropdown overlay={menu}>
-                  <a href="#">
-                    <Avatar icon="user" size={24}></Avatar>
-                    <span className="layout__header__right__name">&nbsp;{this.state.username}</span>
-                  </a>
-                </Dropdown>
-              </div>
-            </Header>
-            <Content className="layout__content">
-              <Switch>
-                <Route path="/" exact component={Dashboard}/>
-                <Route path="/user" exact component={UserManage}/>
-                <Route path="/through_bus_manage" exact component={ThroughBusManage}/>
-                <Route path="/charter_bus_manage" exact component={CharterBusManage}/>
-                <Route path="/order_manage" exact component={OrderManage}/>
-                <Route path="/member_manage" exact component={MemberManage}/>
-              </Switch>
-            </Content>
+              <div className="layout__logo"><Icon type="setting" />{this.state.collapsed ? '' : '\u00A0定制巴士'}</div>
+              <Menu
+                theme="dark"
+                defaultSelectedKeys={this.menuAutoSelect()}
+              >
+                {
+                  SiderMenus.map(item => {
+                    return (
+                      <Menu.Item key={item.key}>
+                        <Link to={item.link}>
+                          <Icon type={item.icon} />
+                          <span>{item.title}</span>
+                        </Link>
+                      </Menu.Item>
+                    )
+                  })
+                }
+              </Menu>
+            </Sider>
+            <Layout>
+              <Header className="layout__header">
+                <div className="layout__header__right">
+                  <Dropdown overlay={menu}>
+                    <a href="#">
+                      <Avatar icon="user" size={24}></Avatar>
+                      <span className="layout__header__right__name">&nbsp;{this.state.username}</span>
+                    </a>
+                  </Dropdown>
+                </div>
+              </Header>
+              <Content className="layout__content">
+                <Switch>
+                  <Route path="/" exact component={Dashboard}/>
+                  <Route path="/user" exact component={UserManage}/>
+                  <Route path="/through_bus_manage" exact component={ThroughBusManage}/>
+                  <Route path="/charter_bus_manage" exact component={CharterBusManage}/>
+                  <Route path="/raise_address_manage" exact component={RaiseAddressManage}/>
+                  <Route path="/raise_bus_manage" exact component={RaiseBusManage}/>
+                  <Route path="/order_manage" exact component={OrderManage}/>
+                  <Route path="/member_manage" exact component={MemberManage}/>
+                </Switch>
+              </Content>
+            </Layout>
           </Layout>
-        </Layout>
-      </HashRouter>
+        </HashRouter>
+      </LocaleProvider>
     );
   }
   //左侧菜单选中状态根据 url 自动转换

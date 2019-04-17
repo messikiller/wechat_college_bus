@@ -52,4 +52,7 @@ Route::group([
 
     Route::get('/charter/bus/list', 'CharterBusController@list');
     Route::post('/charter/bus/offer', 'CharterBusController@offer');
+
+    Route::post('/raise/address/add', 'RaiseAddressController@add');
+    Route::get('/raise/address/list', 'RaiseAddressController@list');
 });

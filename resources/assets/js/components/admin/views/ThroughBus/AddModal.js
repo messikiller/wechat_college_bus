@@ -46,11 +46,9 @@ export default class AddModal extends React.Component {
       data: this.state.addForm
     })
     this.resetAddForm()
-    this.setState({ visible: false }, () => {
-      Modal.success({
-        title: '成功',
-        content: '添加直通车成功！'
-      })
+    Modal.success({
+      title: '成功',
+      content: '添加直通车成功！'
     })
     this.props.onOk()
   }
